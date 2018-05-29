@@ -156,6 +156,19 @@ class ZScores(object):
             if (weight is None) or (length is None):
                 raise ValueError("For measure wfl, you must specify weight and length")
 
+        if ('l' in measure) and ('a' in measure):
+            if age > 24:
+                raise ValueError("For ages > 24 months use height")
+        if ('h' in measure) and ('a' in measure):
+            if age < 24:
+                raise ValueError("For ages < 24 months use length")
+
+        if 'a' in measure:
+            if age < 0:
+                raise ValueError("Age should be greater than or equal to 0 months")
+            if age > 60:
+                raise ValueError("Age should be less than 60 months")
+
         # Add gender
         if gender == 1:
             measure += '_boys'
